@@ -89,7 +89,7 @@ print(r2.getRatesOfChange())
 # simulate for day18 initial conditions,
 # store results in pandas DataFrame "result" : 
 r2 = te.loada(Ant_str)
-result = pd.DataFrame(r2.simulate(0, 180 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'clustered'])
+result = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'clustered'])
 
 
 # reset the model,
@@ -99,7 +99,7 @@ r2.reset()
 r2.F = 0.46
 r2.W = 0.50
 
-result_old = pd.DataFrame(r2.simulate(0, 180 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'clustered'])
+result_old = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'clustered'])
 #create new column with total integrin amount at each time step
 result = result.assign(Sum = result.inactive + result.active + result.F_bound + result.vWA_bound +2*result.clustered, Experiment="day18")
 result = result.assign(percentClustered = 2*result.clustered / result.Sum,
@@ -125,6 +125,7 @@ for i, col in enumerate(df2.columns[1:8]):
     plt.figure(i)
     sns.relplot(x='time', y=col, kind='line', hue= 'Experiment' ,data=df2)
     plt.ylabel(col+' uM')
+    plt.xticks(rotation=45)
     plt.savefig(col+'_absolute_day18_25.png')
 
 #%% loop over df2 to plot percentage of each integrin-related species after 1 min of simulation
@@ -135,6 +136,7 @@ for i, col in enumerate(df2.columns[10:16]):
     sns.relplot(x='time', y=col, kind='line', hue= 'Experiment' ,data=df2)
     plt.ylim(0, 1)
     plt.ylabel(col+' integrins')
+    plt.xticks(rotation=45)
     plt.savefig(col+'_day18_25.png')
 
 
