@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu May  7 14:00:17 2020
+Created on Mon May 25 09:08:39 2020
 
 @author: zeynep karagoz
 # -*- coding: utf-8 -*-
@@ -14,7 +14,7 @@ import matplotlib.pylab as plt # Additional Python plotting utilities
 import pandas as pd
 import os
 import seaborn as sns
-os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\figures\Yu_Hudson_params\aVB3-FN-vWFA')
+os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\figures\Yu_Hudson_params\aVB3-FN-vWFA\ligand_IC_equal')
 font = {'family' : 'normal',
         'weight' : 'bold',
         'size'   : 13}
@@ -22,6 +22,9 @@ font = {'family' : 'normal',
 matplotlib.rc('font', **font)
 #%% 
 # 2 ligand 1 integrin  
+
+# testing if the initial concentration of ligands have an effect on the steady state? 
+
 # ligands: fibronectin and von Willebrand Factor A (initial values adapted from kidney orgaoid iBAQ values)
 # integrin avB3 (initial value from Hudson et al)
 # here the rate for ligand binding-unbinding  is from Hudson et al (both ligands) 
@@ -34,11 +37,11 @@ Ant_str = """
   #inactive integrin, active integrin, fibronectin, integrin+fibronectin, vonWillebrand Factor A, integrin+vonWillebrand Factor A, clustered integrins respectively.
   
   #set initial values:
-  i = 0.05; # integrin avB3
+  i = 0.05; # integrin avB3 
   I = 0; 
-  F = 0.18   ; #fibronectin
+  F = 0.33   ; #fibronectin (set the same as vWA)
   IF = 0;
-  W = 0.33   ; #von Willebrand factor A
+  W = 0.33   ; #von Willebrand factor A 
   IW = 0;  
   C = 0;
 
@@ -81,7 +84,7 @@ print(r2.getSteadyStateValuesNamedArray())
 #[[ 0.0163967, 0.0163967, 2.12321e-10, 4.24643e-09, 0.00860328]]
 #these are the steady state values.
 print(r2.getRatesOfChange())
-# [ 2.77319834e-13 -2.77318750e-13 -4.55364912e-18  3.46944695e-18] these are the rates of change of the 4 reactions , all approaching 0 --> confirm steady state. 
+# [ 2.77319834e-13 -2.77318750e-13 -4.55364912e-18  3.46944695e-18] these are the rates of change of the 5 , all approaching 0 --> confirm steady state. 
 
 #simulate for 3 mins!!! = 180s
 
@@ -138,7 +141,3 @@ for i, col in enumerate(df2.columns[10:16]):
     plt.ylabel(col+' integrins')
     plt.xticks(rotation=45)
     plt.savefig(col+'_day18_25.png')
-
-
-
-
