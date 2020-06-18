@@ -19,7 +19,7 @@ font = {'family' : 'normal',
         'weight' : 'bold',
         'size'   : 13}
 
-
+matplotlib.rc('font', **font)
 #%% 
 # 2 ligand 1 integrin  
 
@@ -137,9 +137,11 @@ df2 = result.append(result_old)
 print(df2.columns)
 for i, col in enumerate(df2.columns[1:10]):
     plt.figure(i)
+    sns.set_style("whitegrid")
     sns.relplot(x='time', y=col, kind='line', hue= 'Experiment' ,data=df2)
     plt.ylabel(col+' uM')
-    plt.xticks(rotation=45)
+    plt.xlabel("time (s)")
+    plt.xticks(rotation=15)
     plt.savefig(str(i)+'_'+col+'_absolute_day18_25.png')
 
 #%% loop over df2 to plot percentage of each integrin-related species after 1 min of simulation

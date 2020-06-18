@@ -89,12 +89,12 @@ r2.steadyState()
  
 print(r2.getSteadyStateValuesNamedArray())
 #     [IF],        [IW],         [I],        [C3],         [i],      [C1],        [C2]
-# [[ 0.0211892, 3.22444e-05, 1.40459e-10, 2.18634e-05, 2.80917e-09, 0.0143674, 3.32704e-08]]
+# [[ 0.0211721, 5.90671e-05, 2.573e-10, 4.00184e-05, 5.146e-09, 0.0143443, 1.11646e-07]]
 
 
 #these are the steady state values.
 print(r2.getRatesOfChange())
-# [-2.84199747e-14 -7.53908050e-12 -1.70200683e-18  2.84217094e-14 0.00000000e+00  0.00000000e+00] these are the rates of change of the 6 reactions, all approaching 0 --> confirm steady state. 
+# [-2.84199747e-14  1.09054987e-11 -3.47431739e-18  2.84217094e-14 3.46944695e-18  0.00000000e+00] these are the rates of change of the 6 reactions, all approaching 0 --> confirm steady state. 
 
 #
 
@@ -137,9 +137,11 @@ df2 = result.append(result_old)
 print(df2.columns)
 for i, col in enumerate(df2.columns[1:10]):
     plt.figure(i)
+    sns.set_style("whitegrid")
     sns.relplot(x='time', y=col, kind='line', hue= 'Experiment' ,data=df2)
     plt.ylabel(col+' uM')
-    plt.xticks(rotation=45)
+    plt.xlabel("time (s)")
+    plt.xticks(rotation=15)
     plt.savefig(str(i)+col+'_absolute_day18_25.png')
 
 #%% loop over df2 to plot percentage of each integrin-related species after 1 min of simulation
