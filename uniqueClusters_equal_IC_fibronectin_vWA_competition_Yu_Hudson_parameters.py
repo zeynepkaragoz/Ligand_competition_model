@@ -109,7 +109,7 @@ result = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 
 # change the initial ligand concentrations to day25, simulate,
 # store results in pandas DataFrame "resul_old": 
 r2.reset()
-r2.F = 0.46
+r2.F = 0.84
 r2.W = 0.50
 
 result_old = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'IF_IFclustered', 'IW_IWclustered', 'IF_IWclustered'])
