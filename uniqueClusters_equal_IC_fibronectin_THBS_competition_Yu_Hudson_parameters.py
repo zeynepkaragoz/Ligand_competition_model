@@ -24,11 +24,11 @@ matplotlib.rc('font', **font)
 # 2 ligand 1 integrin  
 
 # setting the ligands to EQUAL initial conditions
-# differentiating between 3 types of clusters IF+IF, IW+IW and IF+IW 
+# differentiating between 3 types of clusters IF+IF, IT+IT and IF+IT 
 # but the rates of clustering are the same between 3 clusters. only the identities are different
 
 
-# ligands: fibronectin and von Willebrand Factor A (initial values adapted from kidney orgaoid iBAQ values)
+# ligands: fibronectin and thrombospondin (THBS) (initial values adapted from kidney orgaoid iBAQ values)
 # integrin avB3 (initial value from Hudson et al)
 # here the rate for ligand binding-unbinding  is from Hudson et al (both ligands) 
 # activation/inactivation is from  Yu et al. 2017
@@ -36,7 +36,7 @@ matplotlib.rc('font', **font)
 Ant_str = """
   model test # activation model 
 
-  species i, I, $F, IF, $T, IW, C1, C2, C3; 
+  species i, I, $F, IF, $T, IT, C1, C2, C3; 
   #inactive integrin, active integrin, fibronectin, integrin+fibronectin, vonWillebrand Factor A, integrin+vonWillebrand Factor A, clustered integrins respectively.
   
   #set initial values:
@@ -44,7 +44,7 @@ Ant_str = """
   I = 0; 
   F = 0.33   ; #fibronectin (set the same as vWA)
   IF = 0;
-  T = 0.33   ; #von Willebrand factor A 
+  T = 0.33   ; #THBS 
   IT = 0;  
   C1 = 0;     # IF+IF cluster
   C2 = 0;     # IT + IT cluster
@@ -52,7 +52,7 @@ Ant_str = """
 
   J1: i -> I; k1*i - k2*I; # reaction; reaction rate law;   # activation step, k1 rate of activation, k2 rate of inactivation
   J2: I + $F -> IF; k3*I*F - k4*IF;                          # ligand binding step, k3 rate of fibronectin binding, k4 rate of dissociation
-  J3: I + $T -> IT; k5*I*T - k6*IW;                          # alternative ligand binding step, k5 rate of vWFA binding, k6 rate of dissociation
+  J3: I + $T -> IT; k5*I*T - k6*IT;                          # alternative ligand binding step, k5 rate of vWFA binding, k6 rate of dissociation
   J4: IF + IF -> C1; k7*IF^2 - k8*C1;
   J5: IT + IT -> C2; k7*IT^2 - k8*C2;
   J6: IF + IT -> C3; k7*IF*IT - k8*C3;                         # clustering step, k7 rate of clustering, k8 rate of dissociation
@@ -88,7 +88,7 @@ r2.steadyState()
 #  6.8141049931359555e-19 --> this is a good number!
  
 print(r2.getSteadyStateValuesNamedArray())
-#     [IF],        [IW],         [I],        [C3],         [i],      [C1],        [C2]
+#     [IF],        [IT],         [I],        [C3],         [i],      [C1],        [C2]
 # [[ 0.0211892, 3.22444e-05, 1.40459e-10, 2.18634e-05, 2.80917e-09, 0.0143674, 3.32704e-08]]
 
 
