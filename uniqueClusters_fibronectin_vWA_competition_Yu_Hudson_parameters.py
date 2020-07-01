@@ -131,7 +131,7 @@ result_old = result_old.assign(Sum = result_old.inactive + result_old.active + r
 
 #make one dataframe out of day18 and 25 results:
 df2 = result.append(result_old)
-
+df2.to_csv('diffIC_simResults.csv', sep='\t', index=False)
 #%% loop over df2 to plot absolute numbers after 1 min of simulation 
 # saves each plot in the current directory!!
 print(df2.columns)
