@@ -52,6 +52,7 @@ diff_active <- ggplot(diffIC_res,aes(x=time, y=active, group=Experiment)) +
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,0.002))+
   labs(x = "Time (s)",
        y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -80,6 +81,7 @@ diff_Wbound <- ggplot(diffIC_res,aes(x=time, y=vWA_bound, group=Experiment)) +
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,1.5e-5))+
   labs(x = "Time (s)",
        y = expression(paste("vWF-bound Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -88,8 +90,7 @@ diff_Wbound <- ggplot(diffIC_res,aes(x=time, y=vWA_bound, group=Experiment)) +
         legend.text = element_text(size = 14,face="bold"), 
         legend.key.size = unit(1.2, units = "cm"),
         axis.text = element_text(size = 13, face = "bold"),
-        axis.title = element_text(size = 13, face = "bold")) +
-  scale_y_continuous( limits=c(0,6e-6))
+        axis.title = element_text(size = 13, face = "bold")) 
 
 diff_F_F_cluster <- ggplot(diffIC_res,aes(x=time, y=IF_IFclustered, group=Experiment)) + 
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
@@ -109,6 +110,7 @@ diff_W_W_cluster <- ggplot(diffIC_res,aes(x=time, y=IW_IWclustered, group=Experi
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,4e-9))+
   labs(x = "Time (s)",
        y = expression(paste("vWF-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -124,6 +126,7 @@ diff_F_W_cluster <- ggplot(diffIC_res,aes(x=time, y=IF_IWclustered, group=Experi
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,8e-6))+
   labs(x = "Time (s)",
        y = expression(paste("F-vWF-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -160,6 +163,7 @@ eq_active <- ggplot(equalIC_res,aes(x=time, y=active, group=Experiment)) +
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,0.002))+
   labs(x = "Time (s)",
        y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -188,6 +192,7 @@ eq_Wbound <- ggplot(equalIC_res,aes(x=time, y=vWA_bound, group=Experiment)) +
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,1.5e-5))+
   labs(x = "Time (s)",
        y = expression(paste("vWF-bound Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -196,8 +201,7 @@ eq_Wbound <- ggplot(equalIC_res,aes(x=time, y=vWA_bound, group=Experiment)) +
         legend.text = element_text(size = 14,face="bold"), 
         legend.key.size = unit(1.2, units = "cm"),
         axis.text = element_text(size = 13, face = "bold"),
-        axis.title = element_text(size = 13, face = "bold")) +
-  scale_y_continuous( limits=c(0,6e-6))
+        axis.title = element_text(size = 13, face = "bold")) 
 
 eq_F_F_cluster <- ggplot(equalIC_res,aes(x=time, y=IF_IFclustered, group=Experiment)) + 
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
@@ -217,6 +221,7 @@ eq_W_W_cluster <- ggplot(equalIC_res,aes(x=time, y=IW_IWclustered, group=Experim
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,4e-9))+
   labs(x = "Time (s)",
        y = expression(paste("vWF-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -232,6 +237,7 @@ eq_F_W_cluster <- ggplot(equalIC_res,aes(x=time, y=IF_IWclustered, group=Experim
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,8e-6))+
   labs(x = "Time (s)",
        y = expression(paste("F-vWF-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -270,6 +276,7 @@ THBSeq_active <- ggplot(THBS_equalIC_res,aes(x=time, y=active, group=Experiment)
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,0.002))+
   labs(x = "Time (s)",
        y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -298,6 +305,7 @@ THBSeq_Tbound <- ggplot(THBS_equalIC_res,aes(x=time, y=T_bound, group=Experiment
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,1.5e-5))+
   labs(x = "Time (s)",
        y = expression(paste("THBS-bound Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -326,6 +334,7 @@ THBSeq_T_T_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IT_ITclustered, grou
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,4e-9))+
   labs(x = "Time (s)",
        y = expression(paste("THBS-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -341,6 +350,7 @@ THBSeq_F_T_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IF_ITclustered, grou
   geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  scale_y_continuous(limits = c(0,8e-6))+
   labs(x = "Time (s)",
        y = expression(paste("F-THBS-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -354,3 +364,36 @@ THBSeq_F_T_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IF_ITclustered, grou
 
 plot_grid(THBSeq_inactive, THBSeq_active, legend, THBSeq_Fbound, THBSeq_Tbound, NULL, THBSeq_F_F_cluster, THBSeq_T_T_cluster, THBSeq_F_T_cluster,
           ncol=3, labels = c("A", "B", "","C", "D", "", "E", "F", "G"))
+
+
+#change layout! 
+# plot species independently, but for all conditions 
+# A = FN & vWA different initial conditions 
+# B = FN & vWA equal initial conditions 
+# C = FN & vWA with 9 fold increase in day 25, equal initial conditions
+
+# inactive integrin concentration 
+plot_grid(diff_inactive, eq_inactive, THBSeq_inactive, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
+# save pdf 4.8 x 20
+
+# active integrin concentration
+
+plot_grid(diff_active, eq_active, THBSeq_active, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
+
+# Fibronectin-bound integrin
+
+plot_grid(diff_Fbound, eq_Fbound, THBSeq_Fbound,legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3) )
+
+#vWA-bound integrin
+
+plot_grid(diff_Wbound, eq_Wbound, THBSeq_Tbound, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3) )
+
+
+# F clusters
+plot_grid(diff_F_F_cluster, eq_F_F_cluster, THBSeq_F_F_cluster, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
+
+#vWA clusters
+plot_grid(diff_W_W_cluster, eq_W_W_cluster, THBSeq_T_T_cluster, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
+
+# mixed cluster
+plot_grid(diff_F_W_cluster, eq_F_W_cluster, THBSeq_F_T_cluster, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
