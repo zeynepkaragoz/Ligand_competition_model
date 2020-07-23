@@ -416,7 +416,7 @@ plot_grid(diff_Fbound, diff_Wbound,legend, ncol=3, labels = c("A", "B", ""), rel
 plot_grid(eq_Fbound, eq_Wbound, legend, THBSeq_Fbound, THBSeq_Tbound, ncol=3, nrow = 2, labels = c("A", "B", "", "C", "D"), rel_widths = c(1,1,0.3,1,1) )
 # save pdf 9.6 x 14
 
-# fig3: integrin cluster composition reflects the ligand competition
+# fig4: integrin cluster composition reflects the ligand competition
 # equal IC
 
 # A: L1-bound clusters
@@ -429,8 +429,11 @@ plot_grid(eq_Fbound, eq_Wbound, legend, THBSeq_Fbound, THBSeq_Tbound, ncol=3, nr
 plot_grid(eq_F_F_cluster, eq_W_W_cluster, eq_F_W_cluster, legend, THBSeq_F_F_cluster, THBSeq_T_T_cluster, THBSeq_F_T_cluster, ncol=4, nrow=2, labels = c("A", "B", "C", "", "D", "E", "F"), rel_widths = c(1,1,1,0.3,1,1,1))
 #save pdf 9.6 x 20
 
+#figure S1: different ic clusters
+plot_grid(diff_F_F_cluster, diff_W_W_cluster, diff_F_W_cluster, legend, ncol=4, nrow=1, labels = c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
+# save pdf 4.8 x 20
 
-#figure 4: param scan of L2
+#figure 3: param scan of L3
 # read files
 install.packages("colorspace")
 library(colorspace)
@@ -442,8 +445,8 @@ ggplot(paramScan_L2,aes(x=time, y=vWA_bound, group=grad)) +
   scale_y_continuous(limits = c(0,1.2e-5))+
   geom_hline(yintercept = 2.977955e-06, color="black", size=1.5, linetype="dotted" )+
   labs(x = "Time (s)",
-       y = expression(paste("L2-bound Integrin ( ", mu,"M)",sep = "")),
-       color= "L2 initial concentration:")+
+       y = expression(paste("L3-bound Integrin ( ", mu,"M)",sep = "")),
+       color= "L3 initial concentration:")+
   theme_bw(base_size = 13)+
   theme(legend.position = "right", 
         legend.title = element_text(size=15), 
@@ -451,3 +454,4 @@ ggplot(paramScan_L2,aes(x=time, y=vWA_bound, group=grad)) +
         legend.key.size = unit(1.2, units = "cm"),
         axis.text = element_text(size = 13, face = "bold"),
         axis.title = element_text(size = 13, face = "bold")) 
+# save pdf 6x9
