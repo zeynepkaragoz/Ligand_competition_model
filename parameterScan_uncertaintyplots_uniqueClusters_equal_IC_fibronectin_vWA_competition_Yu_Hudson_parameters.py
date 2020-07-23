@@ -34,7 +34,7 @@ os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_
 # activation/inactivation is from  Yu et al. 2017
 # clustering forward is numerically from Hudson, then reverse is estimated using the Kd from Yu et al .
 Ant_str = """
-  model test # activation model 
+  model test # ligand competititon model 
 
   species i, I, $F, IF, $W, IW, C1, C2, C3; 
   #inactive integrin, active integrin, fibronectin, integrin+fibronectin, vonWillebrand Factor A, integrin+vonWillebrand Factor A, clustered integrins respectively.
@@ -106,8 +106,8 @@ for i,next_param in enumerate(names):
 plt.suptitle('Inactive integrin concentration')
 plt.tight_layout()
 plt.subplots_adjust(top=0.88)
-#plt.show()
-plt.savefig('uncertainty_inactiveIntegrin.png')
+plt.show()
+#plt.savefig('uncertainty_inactiveIntegrin.png')
 
 #%%
 r2 = te.loada(Ant_str)
