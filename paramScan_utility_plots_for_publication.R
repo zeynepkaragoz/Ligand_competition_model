@@ -3,7 +3,7 @@ setwd("C:/karagoz/01-RESEARCH/01-Projects/01-In_silico_modeling_of_Integrin_func
 #install + load packages
 
 pkg<-c("magrittr", "ggplot2", "dplyr", "cowplot", "tidyverse")
-install.packages(pkg)
+#install.packages(pkg)
 lapply(pkg, require, character.only = TRUE)
 
 # read uncertainty results all in a list:
@@ -171,3 +171,158 @@ plot_grid(plot_grid(plotlist = row_list2, nrow=4),
           plot_grid(plotlist = plots_list_k7,nrow = 1),
           plot_grid(plotlist = plots_list_k8, nrow = 1), ncol = 1, nrow = 4), ncol = 2, rel_widths = c(0.01,1))
 # save both as pdf: 20x38
+
+
+
+#
+plots_list_i <- list()
+for (n in ordered_file_names[grep("i",ordered_file_names)]){
+  plots_list_i[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+plots_list_i[["./k7_i.csv"]] #works
+
+plots_list_a <- list()
+for (n in ordered_file_names[grep("a",ordered_file_names)]){
+  plots_list_a[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,0.002))+
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+plots_list_IF <- list()
+for (n in ordered_file_names[grep("IF",ordered_file_names)]){
+  plots_list_IF[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,0.03))+
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+plots_list_IW <- list()
+for (n in ordered_file_names[grep("IW",ordered_file_names)]){
+  plots_list_IW[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,5e-6))+
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+plots_list_C1 <- list()
+for (n in ordered_file_names[grep("C1",ordered_file_names)]){
+  plots_list_C1[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,0.02))+
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+plots_list_C2 <- list()
+for (n in ordered_file_names[grep("C2",ordered_file_names)]){
+  plots_list_C2[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,8e-10))+
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+plots_list_C3 <- list()
+for (n in ordered_file_names[grep("C3",ordered_file_names)]){
+  plots_list_C3[[n]] <- ggplot(data_list[[n]], aes(x=time)) +  
+    geom_ribbon(aes(ymin=lower.limit, ymax=upper.limit), fill="pink",alpha=0.7)+
+    geom_line(aes(y=mean), size=1) +
+    scale_y_continuous(limits = c(0,4e-6)) +
+    labs(x = "", y = "")+
+    theme_bw()+
+    theme(axis.text = element_text(size =18, face = "bold"),axis.text.x = element_text(angle = 35, hjust = 1))
+}
+
+
+# cowplot all 
+# rows: different model variables i,a,IF,IW,C1-3
+# cols: each model parameter k1-8
+
+col1 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k1", size=10) + theme_void() 
+
+col2 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k2", size=10) + theme_void() 
+
+col3 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k3", size=10) + theme_void() 
+
+col4 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k4", size=10) + theme_void() 
+
+col5 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k5", size=10) + theme_void() 
+
+col6 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k6", size=10) + theme_void() 
+
+col7 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k7", size=10) + theme_void() 
+
+col8 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="k8",  size=10) + theme_void() 
+
+#row_list1 <- list(row1,row2, row3,row4)
+#row_list2 <- list(row5,row6,row7,row8)
+
+row1 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="inactive integrin", angle = 90,size=10) + theme_void() 
+
+row2 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="active integrin", angle = 90,size=10) + theme_void()
+
+row3 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="L1-bound integrin", angle = 90,size=10) + theme_void() 
+
+row4 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="L2-bound integrin", angle = 90,size=10) + theme_void()
+
+row5 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="L1-integrin cluster", angle = 90,size=10) + theme_void() 
+
+row6 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="L2-integrin cluster", angle = 90,size=10) + theme_void()
+
+row7 <- ggplot() + annotate(geom = 'text', x=1, y=1, label="mixed integrin cluster", angle = 90,size=10) + theme_void()
+
+col_list <- list(col1, col2, col3, col4, col5, col6, col7, col8)
+
+
+# plot_grid(plot_grid(plotlist = row_list1, nrow=4), 
+#           plot_grid(plot_grid(plotlist = col_list, nrow = 1),
+#                     plot_grid(plotlist = plots_list_k1, nrow = 1),
+#                     plot_grid(plotlist = plots_list_k2, nrow = 1),
+#                     plot_grid(plotlist = plots_list_k3, nrow = 1),
+#                     plot_grid(plotlist = plots_list_k4, nrow = 1), ncol = 1, nrow=4, rel_heights = c(0.2,1,1,1,1)), ncol = 2, rel_widths = c(0.01,1))
+# 
+# 
+# plot_grid(plot_grid(plotlist = row_list2, nrow=4),
+#           plot_grid(plot_grid(plotlist = plots_list_k5, nrow= 1),
+#                     plot_grid(plotlist = plots_list_k6, nrow=1),
+#                     plot_grid(plotlist = plots_list_k7,nrow = 1),
+#                     plot_grid(plotlist = plots_list_k8, nrow = 1), ncol = 1, nrow = 4), ncol = 2, rel_widths = c(0.01,1))
+# save both as pdf: 20x38
+
+#grid inactive integrin
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row1,plot_grid(plotlist = plots_list_i, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+
+#grid active integrin 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row2,plot_grid(plotlist = plots_list_a, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+
+#grid IF 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row3,plot_grid(plotlist = plots_list_IF, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+
+#grid IW 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row4,plot_grid(plotlist = plots_list_IW, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+
+#grid C1 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row5,plot_grid(plotlist = plots_list_C1, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+#grid C2 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row6,plot_grid(plotlist = plots_list_C2, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
+#grid C3 
+plot_grid(NULL, plot_grid(plotlist = col_list, nrow = 1), row7,plot_grid(plotlist = plots_list_C3, nrow = 1), nrow = 2, ncol = 2, rel_widths = c(0.02,1), rel_heights = c(0.2,1))
