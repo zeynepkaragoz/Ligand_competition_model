@@ -17,6 +17,10 @@ equalIC_res <- read.csv("../figures_FN_vWF_equal_IC/equalIC_simResults.csv", hea
 diffIC_res <- read.csv("../figures_FN_vWF/diffIC_simResults.csv", header = TRUE, sep = "\t")
 
 THBS_equalIC_res <- read.csv("../figures_FN_THBS_equal_IC/F_THBS_equalIC_simResults.csv", header = TRUE, sep="\t")
+
+equalFC_res <- read.csv("../figures_FN_vWF_foldChange_testing/FN_vWF_equal_foldChange/F_vWA_equalFC_simResults.csv", header = TRUE, sep="\t")
+
+equal_bindingRate_res <- read.csv("../figures_FN_vWF_foldChange_testing/FN_vWF_equal_FC_equal_bindingRates/F_vWA_equalFC_equal_bindingRates_simResults.csv", header = TRUE, sep="\t")
 # plot
 
 
@@ -34,6 +38,8 @@ p <- ggplot(diffIC_res,aes(x=time, y=inactive, group=Experiment)) +
         axis.text = element_text(size =13, face = "bold"))
 legend <- get_legend(p)
 
+
+######## different IC individual plots ###########
 diff_inactive <- ggplot(diffIC_res,aes(x=time, y=inactive, group=Experiment)) + 
   geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
@@ -143,7 +149,7 @@ plot_grid(diff_inactive, diff_active, legend, diff_Fbound, diff_Wbound, NULL, di
 # export as pdf, 14x18
 
 
-# equal initial condition for ligands 
+############# equal initial condition for ligands indiviual plots ##############
 
 eq_inactive <- ggplot(equalIC_res,aes(x=time, y=inactive, group=Experiment)) + 
   geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
@@ -254,7 +260,7 @@ plot_grid(eq_inactive, eq_active, legend, eq_Fbound, eq_Wbound, NULL, eq_F_F_clu
 #export as pdf 14x18
 
 
-
+# 9-fold change individual plots ###########################
 # plot equal amount of fibronectin and THBS 
 # but THBS increases 9fold on day 25 while fibronectin increases only 2.5fold
 
@@ -307,7 +313,7 @@ THBSeq_Tbound <- ggplot(THBS_equalIC_res,aes(x=time, y=T_bound, group=Experiment
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
   scale_y_continuous(limits = c(0,1.5e-5))+
   labs(x = "Time (s)",
-       y = expression(paste("L3-bound Integrin ( ", mu,"M)",sep = "")))+
+       y = expression(paste("L","2"["h"],"-bound Integrin ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
   theme(legend.position = "none", 
         legend.title = element_blank(), 
@@ -321,7 +327,7 @@ THBSeq_F_F_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IF_IFclustered, grou
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
   labs(x = "Time (s)",
-       y = expression(paste("L1-bound Cluster ( ", mu,"M)",sep = "")))+
+       y = expression(paste("L1-L1-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
   theme(legend.position = "none", 
         legend.title = element_blank(), 
@@ -336,7 +342,7 @@ THBSeq_T_T_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IT_ITclustered, grou
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
   scale_y_continuous(limits = c(0,4e-9))+
   labs(x = "Time (s)",
-       y = expression(paste("L3-bound Cluster ( ", mu,"M)",sep = "")))+
+       y = expression(paste("L","2"["h"],"-L","2"["h"],"-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
   theme(legend.position = "none", 
         legend.title = element_blank(), 
@@ -352,7 +358,7 @@ THBSeq_F_T_cluster <- ggplot(THBS_equalIC_res,aes(x=time, y=IF_ITclustered, grou
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
   scale_y_continuous(limits = c(0,8e-6))+
   labs(x = "Time (s)",
-       y = expression(paste("L1-L3-bound Cluster ( ", mu,"M)",sep = "")))+
+       y = expression(paste("L1-L","2"["h"],"-bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
   theme(legend.position = "none", 
         legend.title = element_blank(), 
@@ -398,7 +404,7 @@ plot_grid(diff_W_W_cluster, eq_W_W_cluster, THBSeq_T_T_cluster, legend, ncol=4, 
 plot_grid(diff_F_W_cluster, eq_F_W_cluster, THBSeq_F_T_cluster, legend, ncol=4, labels=c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
 
 
-#### paper v1 layout
+#### paper v1 layout ###############################
 
 # fig1: ligand bound integrins with experimental initial conditions
 # A: L1-bound integrin
@@ -416,7 +422,7 @@ plot_grid(diff_Fbound, diff_Wbound,legend, ncol=3, labels = c("A", "B", ""), rel
 plot_grid(eq_Fbound, eq_Wbound, legend, THBSeq_Fbound, THBSeq_Tbound, ncol=3, nrow = 2, labels = c("A", "B", "", "C", "D"), rel_widths = c(1,1,0.3,1,1) )
 # save pdf 9.6 x 14
 
-# fig4: integrin cluster composition reflects the ligand competition
+################## fig4: integrin cluster composition reflects the ligand competition #############################
 # equal IC
 
 # A: L1-bound clusters
@@ -429,11 +435,11 @@ plot_grid(eq_Fbound, eq_Wbound, legend, THBSeq_Fbound, THBSeq_Tbound, ncol=3, nr
 plot_grid(eq_F_F_cluster, eq_W_W_cluster, eq_F_W_cluster, legend, THBSeq_F_F_cluster, THBSeq_T_T_cluster, THBSeq_F_T_cluster, ncol=4, nrow=2, labels = c("A", "B", "C", "", "D", "E", "F"), rel_widths = c(1,1,1,0.3,1,1,1))
 #save pdf 9.6 x 20
 
-#figure S1: different ic clusters
+################### figure S1: different ic clusters ##########################
 plot_grid(diff_F_F_cluster, diff_W_W_cluster, diff_F_W_cluster, legend, ncol=4, nrow=1, labels = c("A", "B", "C", ""), rel_widths = c(1,1,1,0.3))
 # save pdf 4.8 x 20
 
-#figure 3: param scan of L3
+############# figure 3: param scan of L3 #################################
 # read files
 install.packages("colorspace")
 library(colorspace)
@@ -455,3 +461,192 @@ ggplot(paramScan_L2,aes(x=time, y=vWA_bound, group=grad)) +
         axis.text = element_text(size = 13, face = "bold"),
         axis.title = element_text(size = 13, face = "bold")) 
 # save pdf 6x9
+
+
+###### equal IC, equal fold change ###############
+
+eq_FC_IC_inactive <- ggplot(equalFC_res,aes(x=time, y=inactive, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("Inactive Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_FC_IC_active <- ggplot(equalFC_res,aes(x=time, y=active, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+
+eq_FC_IC_L1_bound <- ggplot(equalFC_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-bound Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_FC_IC_L2_bound <- ggplot(equalFC_res, aes(x=time, y=W_bound, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L2-bound Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+
+eq_FC_L1_L1_cluster <- ggplot(equalFC_res, aes(x=time, y=IF_IFclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-L1-bound Integrin CLuster ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_FC_L2_L2_cluster <- ggplot(equalFC_res, aes(x=time, y=IW_IWclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L2-L2-bound Integrin CLuster ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_FC_L1_L2_cluster <- ggplot(equalFC_res, aes(x=time, y=IF_IWclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-L2-bound Integrin CLuster ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+####### equal IC, equal BINDING RATES individual plots ###########
+
+eq_BR_inactive <- ggplot(equal_bindingRate_res,aes(x=time, y=inactive, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("Inactive Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_active <- ggplot(equal_bindingRate_res,aes(x=time, y=active, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_L1_bound <- ggplot(equal_bindingRate_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-bound Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_L2_bound <- ggplot(equal_bindingRate_res,aes(x=time, y=W_bound, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L2-bound Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_L1_L1_cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IF_IFclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-L1-bound Integrin Cluster( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_L2_L2_cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IW_IWclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L2-L2-bound Integrin Cluster( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
+
+eq_BR_L1_L2_cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IF_IWclustered, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("L1-L2-bound Integrin Cluster( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))
