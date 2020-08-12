@@ -27,7 +27,7 @@ equal_bindingRate_res$test <- "Equal IC, Equal BR"
 
 full_DF <- rbind(equalIC_res, diffIC_res, THBS_equalIC_res, equalFC_res)
 
-factors <- c("Different IC","Equal IC", "Equal IC, High FC","Equal IC, Equal FC" )
+factors <- c("Different IC","Equal IC","Equal IC, Equal FC",  "Equal IC, High FC" )
 
 full_DF$test <- factor(full_DF$test, levels=factors)
 
@@ -250,3 +250,4 @@ eq_BR_L1_L2cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IF_IWclustered,
 cluster_top_row <- plot_grid(L1_L1_cluster_grid, L2_L2_cluster_grid, L1_L2_cluster_grid, labels = c("A", "B", "C"), ncol=3)
 cluster_bottom_row <- plot_grid(eq_BR_L1_L1cluster, eq_BR_L2_L2cluster, eq_BR_L1_L2cluster, labels = c("D", "E", "F"), ncol = 3)
 plot_grid(legend,cluster_top_row, cluster_bottom_row, nrow = 3, rel_heights = c(0.2, 4, 1.4))
+#save pdf 16x13
