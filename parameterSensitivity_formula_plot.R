@@ -50,7 +50,7 @@ PS_values_all <- rbind(PS_values_ups_long, PS_values_downs_long)
 PS_values_all$param_name <- factor(PS_values_all$param_name, levels = c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "F", "W"))
 PS_values_all$up_down <- factor(PS_values_all$up_down, levels=c("up", "down"))
 PS_values_all$mol_species <- substring(PS_values_all$mol_species,3)
-PS_values_all$mol_species <- factor(PS_values_all$mol_species, levels = c("a.", "i.", "IF.", "IW.", "C1.","C2.","C3."))
+PS_values_all$mol_species <- factor(PS_values_all$mol_species, levels = c("i.", "a.", "IF.", "IW.", "C1.","C2.","C3."))
 
 #ready to plot
 
@@ -60,6 +60,22 @@ PS_values_all$mol_species <- factor(PS_values_all$mol_species, levels = c("a.", 
 # grid cols = ups/downs 
 # grid rows = molecular species
 
-ggplot(PS_values_all, aes(x=param_name, y=PS_value)) + 
+molecule_names <- c(i.="Inactive", 
+                    a.="Active", 
+                    IF.="L1-bound", 
+                    IW.="L2-bound", 
+                    C1.="L1-L1 cluster",
+                    C2.="L2-L2 cluster",
+                    C3.="L1-L2 cluster")
+up_down_label = c(up="Parameter increased 20%", 
+                  down="Parameter decreased 20%")
+
+ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
   geom_col()+
-  facet_grid(rows = vars(mol_species), cols = vars(up_down))
+  geom_hline(yintercept = 1, color= "red")+
+  facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
+  scale_y_continuous(limits = c(0,2))+
+  scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
+  theme_bw()+
+  theme(legend.position ="none")+
+  labs(x="", y="Parameter sensitivity")
