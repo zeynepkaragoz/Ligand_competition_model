@@ -29,7 +29,7 @@ PS_values_ups <- data.frame()
 for(i in 1:11){
 PS_values_ups[i,1:7] <- (abs(steadyState_all[grep("up", steadyState_all$test_condition),][i,1:7]-steadyState_all[1,1:7])/ steadyState_all[1,1:7])/0.2
 }
-PS_values_ups$param_name <- c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "F", "W")
+PS_values_ups$param_name <- c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "L1", "L2")
 PS_values_ups$up_down <- "up"
 
 PS_values_ups_long <- gather(PS_values_ups, "mol_species","PS_value", 1:7)
@@ -39,7 +39,7 @@ PS_values_downs <- data.frame()
 for(i in 1:11){
   PS_values_downs[i,1:7] <- (abs(steadyState_all[grep("down", steadyState_all$test_condition),][i,1:7]-steadyState_all[1,1:7])/ steadyState_all[1,1:7])/0.2
 }
-PS_values_downs$param_name <- c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "F", "W")
+PS_values_downs$param_name <- c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "L1", "L2")
 PS_values_downs$up_down <- "down"
 
 PS_values_downs_long <- gather(PS_values_downs, "mol_species","PS_value", 1:7)
@@ -47,7 +47,7 @@ PS_values_downs_long <- gather(PS_values_downs, "mol_species","PS_value", 1:7)
 # append the two dfs 
 
 PS_values_all <- rbind(PS_values_ups_long, PS_values_downs_long)
-PS_values_all$param_name <- factor(PS_values_all$param_name, levels = c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "F", "W"))
+PS_values_all$param_name <- factor(PS_values_all$param_name, levels = c("k1", "k2", "k3", "k4", "k5", "k6", "k7", "k8", "i", "L1", "L2"))
 PS_values_all$up_down <- factor(PS_values_all$up_down, levels=c("up", "down"))
 PS_values_all$mol_species <- substring(PS_values_all$mol_species,3)
 PS_values_all$mol_species <- factor(PS_values_all$mol_species, levels = c("i.", "a.", "IF.", "IW.", "C1.","C2.","C3."))
@@ -76,6 +76,11 @@ ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_do
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
   scale_y_continuous(limits = c(0,2))+
   scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
-  theme_bw()+
-  theme(legend.position ="none")+
+  theme_bw(base_size = 15)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size =15, face = "bold"),
+        axis.text.x = element_text(angle = 15),
+        strip.text.x = element_text(size = 16),
+        strip.text.y = element_text(size=15)) +
   labs(x="", y="Parameter sensitivity")
+#save pdf, landscape, 16*13
