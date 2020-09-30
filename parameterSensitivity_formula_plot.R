@@ -11,7 +11,7 @@
 
 ###### read the csv with calculated steady states ######
 
-setwd("C:/karagoz/01-RESEARCH/01-Projects/01-In_silico_modeling_of_Integrin_function/003-Ligand_competition_model/Unique_clusters/figures_FN_vWF_equal_IC/parameterSensitivity")
+setwd("C:/karagoz/01-RESEARCH/01-Projects/01-In_silico_modeling_of_Integrin_function/003-Ligand_competition_model/Unique_clusters/parameterSensitivity/")
 
 #install + load packages
 
