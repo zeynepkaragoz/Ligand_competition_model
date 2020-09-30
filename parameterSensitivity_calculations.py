@@ -15,7 +15,7 @@ import pandas as pd
 import os
 import seaborn as sns
 import math
-os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\Unique_clusters\figures_FN_vWF_equal_IC\parameterSensitivity')
+os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\Unique_clusters\parameterSensitivity')
 
 #%% 
 # 2 ligand 1 integrin  
@@ -46,7 +46,7 @@ Ant_str = """
   #set initial values:
   i = 0.05; # integrin avB3 
   a = 0; 
-  F = 0.33   ; #fibronectin (set the same as vWA)
+  F = 0.18   ; #fibronectin (set the same as vWA)
   IF = 0;
   W = 0.33   ; #von Willebrand factor A 
   IW = 0;  
@@ -67,9 +67,6 @@ r2 = te.loada(Ant_str)
 #%%
 r2.conservedMoietyAnalysis = True
 
-#print(r2.getSteadyStateValuesNamedArray())
-#     [IF],        [IW],         [a],        [C3],         [i],      [C1],        [C2]
-# [[ 0.0211892, 3.22444e-05, 1.40459e-10, 2.18634e-05, 2.80917e-09, 0.0143674, 3.32704e-08]]
 
 ## Index = 0 - SS with normal parameters, equal IC for ligands and 0.05 integrin IC
 steadyStates_all = pd.DataFrame(r2.getSteadyStateValuesNamedArray(), columns=['[IF]','[IW]','[a]','[C3]','[i]','[C1]','[C2]'])
@@ -243,7 +240,7 @@ steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesN
 # change the F to be 0.20 more than normal value,
 # append the DF with new steady state values: 
 r2.reset()
-r2.F = 0.33+(0.2*0.33)
+r2.F = 0.18+(0.2*0.18)
 r2.conservedMoietyAnalysis = True
 ## Index = 19 - SS with F increased 20%
 steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesNamedArray(), columns=['[IF]','[IW]','[a]','[C3]','[i]','[C1]','[C2]']), ignore_index=True)
@@ -252,7 +249,7 @@ steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesN
 # change the F to be 0.20 less than normal value,
 # append the DF with new steady state values: 
 r2.reset()
-r2.F = 0.33-(0.2*0.33)
+r2.F = 0.18-(0.2*0.18)
 r2.conservedMoietyAnalysis = True
 ## Index = 20 - SS with F decreased 20%
 steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesNamedArray(), columns=['[IF]','[IW]','[a]','[C3]','[i]','[C1]','[C2]']), ignore_index=True)
@@ -261,7 +258,7 @@ steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesN
 # change the W to be 0.20 more than normal value,
 # append the DF with new steady state values: 
 r2.reset()
-r2.F = 0.33+(0.2*0.33)
+r2.W = 0.33+(0.2*0.33)
 r2.conservedMoietyAnalysis = True
 ## Index = 21 - SS with W increased 20%
 steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesNamedArray(), columns=['[IF]','[IW]','[a]','[C3]','[i]','[C1]','[C2]']), ignore_index=True)
@@ -270,7 +267,7 @@ steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesN
 # change the W to be 0.20 less than normal value,
 # append the DF with new steady state values: 
 r2.reset()
-r2.F = 0.33-(0.2*0.33)
+r2.W = 0.33-(0.2*0.33)
 r2.conservedMoietyAnalysis = True
 ## Index = 22 - SS with W decreased 20%
 steadyStates_all = steadyStates_all.append(pd.DataFrame(r2.getSteadyStateValuesNamedArray(), columns=['[IF]','[IW]','[a]','[C3]','[i]','[C1]','[C2]']), ignore_index=True)
