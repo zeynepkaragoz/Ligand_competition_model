@@ -15,7 +15,10 @@ THBS_equalIC_res <- read.csv("../figures_FN_THBS_equal_IC/F_THBS_equalIC_simResu
 colnames(THBS_equalIC_res) <- colnames(diffIC_res)
 equalFC_res <- read.csv("../figures_FN_vWF_foldChange_testing/FN_vWF_equal_foldChange/F_vWA_equalFC_simResults.csv", header = TRUE, sep="\t")
 colnames(equalFC_res) <- colnames(diffIC_res)
-equal_bindingRate_res <- read.csv("../figures_FN_vWF_foldChange_testing/FN_vWF_equal_FC_equal_bindingRates/F_vWA_equalFC_equal_bindingRates_simResults.csv", header = TRUE, sep="\t")
+#equal_bindingRate_res <- read.csv("../figures_FN_vWF_foldChange_testing/FN_vWF_equal_FC_equal_bindingRates/F_vWA_equalFC_equal_bindingRates_simResults.csv", header = TRUE, sep="\t")
+#colnames(equal_bindingRate_res) <- colnames(diffIC_res)
+
+equal_bindingRate_res <- read.csv("../figures_FN_vWF_equalBR_differentIC/F_vWA_equal_bindingRates_differentIC_differentFC_simResults.csv", header = TRUE, sep="\t")
 colnames(equal_bindingRate_res) <- colnames(diffIC_res)
 
 # concat. all dfs in one:
@@ -23,7 +26,7 @@ equalIC_res$test <- "Equal IC"
 diffIC_res$test <- "Different IC"
 THBS_equalIC_res$test <- "Equal IC, High FC"
 equalFC_res$test <- "Equal IC, Equal FC"
-equal_bindingRate_res$test <- "Equal IC, Equal BR"
+equal_bindingRate_res$test <- "Different IC, Equal BR"
 
 full_DF <- rbind(equalIC_res, diffIC_res, THBS_equalIC_res, equalFC_res)
 
@@ -203,7 +206,7 @@ eq_BR_L1_L1cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IF_IFclustered,
   geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
-  scale_y_continuous(limits = c(0, 0.005))+
+  scale_y_continuous(limits = c(0, 0.008))+
   labs(x = "Time (s)",
        y = expression(paste("L1-L1 Bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -219,7 +222,7 @@ eq_BR_L2_L2cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IW_IWclustered,
   geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
-  scale_y_continuous(limits = c(0, 0.005))+
+  scale_y_continuous(limits = c(0, 0.008))+
   labs(x = "Time (s)",
        y = expression(paste("L2-L2 Bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
@@ -235,7 +238,7 @@ eq_BR_L1_L2cluster <- ggplot(equal_bindingRate_res,aes(x=time, y=IF_IWclustered,
   geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
   scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
   scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
-  scale_y_continuous(limits = c(0, 0.005))+
+  scale_y_continuous(limits = c(0, 0.008))+
   labs(x = "Time (s)",
        y = expression(paste("L1-L2 Bound Cluster ( ", mu,"M)",sep = "")))+
   theme_bw(base_size = 13)+
