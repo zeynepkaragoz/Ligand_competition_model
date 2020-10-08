@@ -254,3 +254,73 @@ cluster_top_row <- plot_grid(L1_L1_cluster_grid, L2_L2_cluster_grid, L1_L2_clust
 cluster_bottom_row <- plot_grid(eq_BR_L1_L1cluster, eq_BR_L2_L2cluster, eq_BR_L1_L2cluster, labels = c("D", "E", "F"), ncol = 3)
 plot_grid(legend,cluster_top_row, cluster_bottom_row, nrow = 3, rel_heights = c(0.2, 4, 1.4))
 #save pdf 16x13
+
+##### Fig S active-inactive integrins
+
+inactive_grid <- ggplot(full_DF,aes(x=time, y=inactive, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  labs(x = "Time (s)",
+       y = expression(paste("Inactive Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size = 14,face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size = 13, face = "bold"),
+        axis.title = element_text(size = 13, face = "bold")) +
+ # scale_y_continuous( limits=c(0,0.022)) + 
+  facet_grid(rows = vars(test))
+
+active_grid <- ggplot(full_DF,aes(x=time, y=active, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  #scale_y_continuous(limits = c(0,1.5e-5))+
+  labs(x = "Time (s)",
+       y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size = 14,face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size = 13, face = "bold"),
+        axis.title = element_text(size = 13, face = "bold")) +
+  facet_grid(rows = vars(test))
+
+eq_BR_inactive <- ggplot(equal_bindingRate_res,aes(x=time, y=inactive, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  #scale_y_continuous(limits = c(0, 0.015))+
+  labs(x = "Time (s)",
+       y = expression(paste("Inactive Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold"))+
+  facet_grid(rows = vars(test))
+
+eq_BR_active <- ggplot(equal_bindingRate_res,aes(x=time, y=active, group=Experiment)) + 
+  geom_line(aes(color= Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  #scale_y_continuous(limits = c(0, 0.015))+
+  labs(x = "Time (s)",
+       y = expression(paste("Active Integrin ( ", mu,"M)",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        legend.title = element_blank(), 
+        legend.text = element_text(size= 14, face="bold"), 
+        legend.key.size = unit(1.2, units = "cm"),
+        axis.text = element_text(size =13, face = "bold")) + 
+  facet_grid(rows = vars(test))
+
+top_row <- plot_grid(inactive_grid, active_grid, ncol = 2, labels = c("A", "B"))
+bot_row <- plot_grid(eq_BR_inactive, eq_BR_active, ncol=2, labels = c("C", "D"))
+
+plot_grid(legend,top_row, bot_row, nrow=3, ncol = 1,rel_heights = c(0.4,4,1.4))
+#save pdf 15x9

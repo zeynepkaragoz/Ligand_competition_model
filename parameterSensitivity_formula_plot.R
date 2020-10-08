@@ -70,7 +70,8 @@ molecule_names <- c(i.="Inactive",
 up_down_label = c(up="Parameter increased 20%", 
                   down="Parameter decreased 20%")
 
-ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
+exclude <- c("i.", "a.")
+ggplot(PS_values_all[!grepl(paste(exclude, collapse="|"), PS_values_all$mol_species),], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
   geom_col()+
   geom_hline(yintercept = 1, color= "red")+
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
