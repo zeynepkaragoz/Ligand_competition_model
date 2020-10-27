@@ -70,6 +70,20 @@ molecule_names <- c(i.="Inactive",
 up_down_label = c(up="Parameter increased 20%", 
                   down="Parameter decreased 20%")
 
+ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
+  geom_col()+
+  geom_hline(yintercept = 1, color= "red")+
+  facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
+  scale_y_continuous(limits = c(0,2))+
+  scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
+  theme_bw(base_size = 15)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size =15, face = "bold"),
+        axis.text.x = element_text(angle = 15),
+        strip.text.x = element_text(size = 16),
+        strip.text.y = element_text(size=15)) +
+  labs(x="", y="Parameter sensitivity")
+
 exclude <- c("i.", "a.")
 ggplot(PS_values_all[!grepl(paste(exclude, collapse="|"), PS_values_all$mol_species),], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
   geom_col()+
@@ -85,3 +99,18 @@ ggplot(PS_values_all[!grepl(paste(exclude, collapse="|"), PS_values_all$mol_spec
         strip.text.y = element_text(size=15)) +
   labs(x="", y="Parameter sensitivity")
 #save pdf, landscape, 16*13
+
+#plot for only L1 & L2-bound
+ggplot(PS_values_all[PS_values_all$mol_species %in% c("IF.", "IW.") & PS_values_all$up_down == "down",], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
+  geom_col()+
+  geom_hline(yintercept = 1, color= "red")+
+  facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
+  scale_y_continuous(limits = c(0,2))+
+  scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
+  theme_bw(base_size = 15)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size =15, face = "bold"),
+        axis.text.x = element_text(angle = 15),
+        strip.text.x = element_text(size = 16),
+        strip.text.y = element_text(size=15)) +
+  labs(x="", y="Parameter sensitivity")
