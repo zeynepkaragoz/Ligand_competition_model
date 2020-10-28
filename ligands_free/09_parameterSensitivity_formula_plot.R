@@ -86,8 +86,8 @@ ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_do
         strip.text.y = element_text(size=15)) +
   labs(x="", y="Parameter sensitivity")
 
-exclude <- c("F.", "W.")
-ggplot(PS_values_all[!grepl(paste(exclude, collapse="|"), PS_values_all$mol_species),], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
+#exclude L1 - L2 sensitivities
+ggplot(PS_values_all[!(PS_values_all$mol_species %in% names(molecule_names[8:9])),], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
   geom_col()+
   geom_hline(yintercept = 1, color= "red")+
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
