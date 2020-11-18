@@ -76,7 +76,7 @@ ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_do
   geom_col()+
   geom_hline(yintercept = 1, color= "red")+
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
-  scale_y_continuous(limits = c(0,2))+
+  #scale_y_continuous(limits = c(0,2))+
   scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
   theme_bw(base_size = 15)+
   theme(legend.position = "none", 
@@ -107,7 +107,7 @@ ggplot(PS_values_all[PS_values_all$mol_species %in% c("IF.", "IW.") & PS_values_
   geom_col()+
   geom_hline(yintercept = 1, color= "red")+
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
-  scale_y_continuous(limits = c(0,2))+
+  #scale_y_continuous(limits = c(0,2))+
   scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
   theme_bw(base_size = 15)+
   theme(legend.position = "none", 
