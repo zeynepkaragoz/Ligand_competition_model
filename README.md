@@ -31,7 +31,7 @@ then use \
 use \
 10_parameterSensitivity_calculations_integrin_excess.py  
 then the script below plots the supplementary figure 2 \
-11_parameterSensitivity_formula_plot_integrins_excess.R \
+11_parameterSensitivity_formula_plot_integrins_excess.R  
 
 5) extras: \
 12_no_competition.py : simulates the model without competition    
