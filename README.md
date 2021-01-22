@@ -27,13 +27,13 @@ use \
 then use \
 09_parameterSensitivity_formula_plot.R to plot. \
 
-4)Parameter Sensitivity of the ligand competition model with excess integrins compared to ligands: \
+4) Parameter Sensitivity of the ligand competition model with excess integrins compared to ligands: \
 use \
 10_parameterSensitivity_calculations_integrin_excess.py \
 then the script below plots the supplementary figure 2 \
 11_parameterSensitivity_formula_plot_integrins_excess.R \
 
 5) extras: \
-12_no_competition.py : simulates the model without competition  \   
-equations.ipynb : prints out the differential equations of the model \
+12_no_competition.py : simulates the model without competition    
+equations.ipynb : prints out the differential equations of the model  
 
