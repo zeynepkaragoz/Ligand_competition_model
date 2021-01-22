@@ -9,17 +9,17 @@ use \
 3- 03_equal_IC_equal_FC_ligands_free.py for ligand competition equal initial conditions, equal fold change \
 4- 04_equal_IC_high_FC_ligands_free.py for ligand competition equal intial condition, high fold change for L2 \
 5- 05_different_IC_equal_BR_ligands_free.py for ligand competition equal initial conditions, equal binding rates \
-all these scripts export the simulation results in csv files. \
+all these scripts export the simulation results in csv files.  
 
 read these files in: \
-06_plots_simulations.R to plot the results. \
+06_plots_simulations.R to plot the results.  
 
 2) parameter scan of L2 initial condition (manual) \
 use \
 07_paramScan_manual_L2.py to do the parameter scan for L2=0.5 to L2=2.97 \
 exports to csv \
 then use \
-06_plots_simulations.R to plot the results. \
+06_plots_simulations.R to plot the results.  
 
 3) Parameter Sensitivity analysis of the original ligand competition model with excess ligands compared to integrins: \
 use \
