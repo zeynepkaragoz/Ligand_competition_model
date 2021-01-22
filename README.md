@@ -1,6 +1,6 @@
 # Ligand_competition_model
 
-Use scripts in Ligands_free folder to simulate the model, create data and plot the results used in the manuscript. 
+Use scripts in ligands_free folder to simulate the model, create data and plot the results used in the manuscript. 
 
 1) simulations for different test conditions: \
 use \
