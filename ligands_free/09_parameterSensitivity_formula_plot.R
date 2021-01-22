@@ -78,29 +78,34 @@ ggplot(PS_values_all, aes(x=param_name, y=PS_value, fill=param_name, alpha=up_do
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
   #scale_y_continuous(limits = c(0,2))+
   scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
+  labs(x="", y="Parameter sensitivity")+
   theme_bw(base_size = 15)+
   theme(legend.position = "none", 
-        axis.text = element_text(size =15, face = "bold"),
-        axis.text.x = element_text(angle = 15),
-        strip.text.x = element_text(size = 16),
-        strip.text.y = element_text(size=15)) +
-  labs(x="", y="Parameter sensitivity")
+        axis.text = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 20),
+        strip.text.y = element_text(size=18)) 
+
 
 #exclude L1 - L2 sensitivities
 ggplot(PS_values_all[!(PS_values_all$mol_species %in% names(molecule_names[8:9])),], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
   geom_col()+
   geom_hline(yintercept = 1, color= "red")+
   facet_grid(rows = vars(mol_species), cols = vars(up_down), labeller = labeller(mol_species = molecule_names, up_down=up_down_label) )+
-  scale_y_continuous(limits = c(0,2))+
   scale_alpha_manual("up_dow", values = c(0.9, 0.5))+
+  labs(x="", y="Parameter sensitivity")+
   theme_bw(base_size = 15)+
   theme(legend.position = "none", 
-        axis.text = element_text(size =15, face = "bold"),
-        axis.text.x = element_text(angle = 15),
-        strip.text.x = element_text(size = 16),
-        strip.text.y = element_text(size=15)) +
-  labs(x="", y="Parameter sensitivity")
+        axis.text = element_text(size = 12, face = "bold"),
+        axis.title = element_text(size = 20),
+        strip.text.y = element_text(size=12)) 
+
 #save pdf, landscape, 16*13
+ggsave("05_figure5_parameter_sensitivity.pdf", 
+       width = 18,
+       height = 25,
+       units = "cm")
+
+
 
 #plot for only L1 & L2-bound
 ggplot(PS_values_all[PS_values_all$mol_species %in% c("IF.", "IW.") & PS_values_all$up_down == "down",], aes(x=param_name, y=PS_value, fill=param_name, alpha=up_down)) + 
