@@ -36,4 +36,5 @@ then the script below plots the supplementary figure 2 \
 5) extras: \
 12_no_competition.py : simulates the model without competition    
 equations.ipynb : prints out the differential equations of the model  
-
+simulation_results_data : folder that contains all the raw data from simulations at each test condition, same numbering 1-5 is used for test conditions is used here
+ligandCompetitionModel.sbml : SBML file for the ligand competition model, use this and the initial concentrations given in Table 1 of the publication to reproduce the results
