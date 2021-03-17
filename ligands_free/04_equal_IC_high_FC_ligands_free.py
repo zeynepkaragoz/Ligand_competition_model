@@ -99,7 +99,7 @@ print(r2.getRatesOfChange())
 # simulate for day18 initial conditions,
 # store results in pandas DataFrame "result" : 
 r2 = te.loada(Ant_str)
-result = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','T', 'IF', 'IT',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','T', 'F_bound', 'T_bound', 'IF_IFclustered', 'IT_ITclustered', 'IF_ITclustered'])
+result = pd.DataFrame(r2.simulate(0, 0.000016 , 100 , ['time', 'i', 'I','F','T', 'IF', 'IT',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','T', 'F_bound', 'T_bound', 'IF_IFclustered', 'IT_ITclustered', 'IF_ITclustered'])
 
 
 # reset the model,
@@ -109,7 +109,7 @@ r2.reset()
 r2.F = 0.84
 r2.T = 2.97
 
-result_old = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','T', 'IF', 'IT',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','T', 'F_bound', 'T_bound', 'IF_IFclustered', 'IT_ITclustered', 'IF_ITclustered'])
+result_old = pd.DataFrame(r2.simulate(0, 0.000016 , 100 , ['time', 'i', 'I','F','T', 'IF', 'IT',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','T', 'F_bound', 'T_bound', 'IF_IFclustered', 'IT_ITclustered', 'IF_ITclustered'])
 #create new column with total integrin amount at each time step
 result = result.assign(Sum = result.inactive + result.active + result.F_bound + result.T_bound +2*result.IF_IFclustered+2*result.IT_ITclustered+2*result.IF_ITclustered, Experiment="day18")
 #result = result.assign(percentClustered = 2*result.clustered / result.Sum,

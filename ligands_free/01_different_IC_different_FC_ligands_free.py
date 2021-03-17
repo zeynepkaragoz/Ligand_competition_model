@@ -14,7 +14,7 @@ import matplotlib.pylab as plt # Additional Python plotting utilities
 import pandas as pd
 import os
 import seaborn as sns
-os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\ligands_free\different_IC_different_FC')
+os.chdir(r'C:\karagoz\01-RESEARCH\01-Projects\01-In_silico_modeling_of_Integrin_function\003-Ligand_competition_model\ligands_free\01_different_IC_different_FC')
 font = {'family' : 'normal',
         'weight' : 'bold',
         'size'   : 13}
@@ -79,7 +79,10 @@ r2 = te.loada(Ant_str)
 #dC1/dt = vJ4
 #dC2/dt = vJ5
 #dC3/dt = vJ6
+#%%
 
+# export the model as SBML file 
+r2.exportToSBML('ligandCompetitionModel.sbml')
 
 #%%
 
@@ -101,7 +104,7 @@ print(r2.getRatesOfChange())
 # simulate for day18 initial conditions,
 # store results in pandas DataFrame "result" : 
 r2 = te.loada(Ant_str)
-result = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'IF_IFclustered', 'IW_IWclustered', 'IF_IWclustered'])
+result = pd.DataFrame(r2.simulate(0, 0.000016 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'IF_IFclustered', 'IW_IWclustered', 'IF_IWclustered'])
 
 
 # reset the model,
@@ -111,7 +114,7 @@ r2.reset()
 r2.F = 0.46
 r2.W = 0.50
 
-result_old = pd.DataFrame(r2.simulate(0, 0.00001 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'IF_IFclustered', 'IW_IWclustered', 'IF_IWclustered'])
+result_old = pd.DataFrame(r2.simulate(0, 0.000016 , 100 , ['time', 'i', 'I','F','W', 'IF', 'IW',  'C1', 'C2', 'C3']), columns=['time', 'inactive', 'active','F','W', 'F_bound', 'vWA_bound', 'IF_IFclustered', 'IW_IWclustered', 'IF_IWclustered'])
 #create new column with total integrin amount at each time step
 result = result.assign(Sum = result.inactive + result.active + result.F_bound + result.vWA_bound +2*result.IF_IFclustered+2*result.IW_IWclustered+2*result.IF_IWclustered, Experiment="day18")
 #result = result.assign(percentClustered = 2*result.clustered / result.Sum,
