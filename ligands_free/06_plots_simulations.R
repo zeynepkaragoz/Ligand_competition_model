@@ -2,7 +2,7 @@ setwd("C:/karagoz/01-RESEARCH/01-Projects/01-In_silico_modeling_of_Integrin_func
 
 #install + load packages
 
-pkg<-c("magrittr", "ggplot2", "dplyr", "cowplot")
+pkg<-c("magrittr", "ggplot2", "dplyr", "cowplot", "ggforce")
 #install.packages(pkg)
 lapply(pkg, require, character.only = TRUE)
 
@@ -136,9 +136,6 @@ ggsave("01_figure2_ligand_bound_integrins.pdf",
        height = 19,
        width = 12,
        units = "in")
-
-
-
 
 
 ##### Figure 2: L2 bound integrin Initial Concentration test ########
@@ -569,7 +566,7 @@ equalBR_L2_bound_day25 <- ggplot(diffIC_equalBR_res,aes(x=time, y=vWA_bound, gro
         axis.text = element_text(size = 13),
         axis.title = element_text(size = 13)) +
   scale_y_continuous( limits=c(0,0.022))
-?ggsave
+
 
 ggsave("no_comp_L1_bound_day18.pdf",
        plot = no_competition_L1_bound_day18,
@@ -642,3 +639,65 @@ ggsave("equal_BR_L2_bound_day25.pdf",
        width = 15,
        height = 15,
        units = "cm")
+
+
+##### Supplementary L1-bound zoom ####
+
+
+zoom_L1_bound_cond1 <- ggplot(diffIC_diffFC_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "top", 
+        axis.text = element_text(size = 10, face="bold"),
+        axis.title = element_text(size = 13)) +
+  facet_zoom(ylim = c(0.021204,0.021208), xlim = c(1.3e-5, 1.6e-5), horizontal = FALSE, zoom.size = 0.5)+
+  labs(x = "Time (s)",
+       y = expression(paste("          L1-bound Integrin ( nM )",sep = "")),
+       title = "Test Condition 1")
+zoom_L1_bound_cond2 <- ggplot(equalIC_diffFC_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "top", 
+        axis.text = element_text(size = 10, face="bold"),
+        axis.title = element_text(size = 13)) +
+  facet_zoom(ylim = c(0.021207,0.021209), xlim = c(1.3e-5, 1.6e-5), horizontal = FALSE, zoom.size = 0.5)+
+  labs(x = "Time (s)",
+       y = expression(paste("          L1-bound Integrin ( nM )",sep = "")),
+       title = "Test Condition 2")
+
+zoom_L1_bound_cond3 <- ggplot(equalIC_equalFC_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "top", 
+        axis.text = element_text(size = 10, face="bold"),
+        axis.title = element_text(size = 13)) +
+  facet_zoom(ylim = c(0.0212075,0.0212078), xlim = c(1.3e-5, 1.6e-5), horizontal = FALSE, zoom.size = 0.5)+
+  labs(x = "Time (s)",
+       y = expression(paste("          L1-bound Integrin ( nM )",sep = "")),
+       title = "Test Condition 3")
+zoom_L1_bound_cond4 <- ggplot(equalIC_highFC_res,aes(x=time, y=F_bound, group=Experiment)) + 
+  geom_line(aes(color=Experiment, linetype=Experiment),size=1.5) +
+  scale_linetype_manual(labels=c("Day 18", "Day 25"), values=c("solid", "dotted"))+
+  scale_color_manual(labels=c("Day 18", "Day 25"), values = c("gray" , "#FC4E07"))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "top", 
+        axis.text = element_text(size = 10, face="bold"),
+        axis.title = element_text(size = 13)) +
+  facet_zoom(ylim = c(0.021209,0.021202), xlim = c(1.3e-5, 1.6e-5), horizontal = FALSE, zoom.size = 0.5)+
+  labs(x = "Time (s)",
+       y = expression(paste("          L1-bound Integrin ( nM )",sep = "")),
+       title = "Test Condition 4")
+plot_grid(zoom_L1_bound_cond1,zoom_L1_bound_cond2,zoom_L1_bound_cond3,zoom_L1_bound_cond4, 
+          ncol = 2, 
+          labels = c("A", "B", "C", "D"))
+
+ggsave("06_figureS3_zoomL1_bound.pdf",
+       height = 15,
+       width = 12,
+       units = "in")
