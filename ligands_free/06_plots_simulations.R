@@ -701,3 +701,56 @@ ggsave("06_figureS3_zoomL1_bound.pdf",
        height = 15,
        width = 12,
        units = "in")
+##### supplementary 3 ligands model #####
+
+simRes_3Ligands_lowerAffinity <- read.csv("../10_3LigandsCompetition/3LigandsModel_lowAff_simResults.csv", header = TRUE, sep="\t")
+simRes_3Ligands_higherAffinity <- read.csv("../10_3LigandsCompetition/3LigandsModel_highAff_simResults.csv", header = TRUE, sep ="\t")
+
+L3_bound <- ggplot(simRes_3Ligands_higherAffinity[simRes_3Ligands_higherAffinity$Experiment=="day18",],aes(x=time, y=G_bound)) + 
+  geom_line(size=2) +
+  labs(x = "Time (s)",
+       y = expression(paste("L3-bound Integrin ( nM )",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 20),
+        strip.text.y = element_text(size=18)) +
+  scale_y_continuous( limits=c(0,0.022)) 
+
+L1_bound <- ggplot(simRes_3Ligands_higherAffinity[simRes_3Ligands_higherAffinity$Experiment == "day18",],aes(x=time, y=F_bound)) + 
+  geom_line(size=2) +
+  labs(x = "Time (s)",
+       y = expression(paste("L1-bound Integrin ( nM )",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 20),
+        strip.text.y = element_text(size=18)) 
+
+L2_bound <- ggplot(simRes_3Ligands_higherAffinity[simRes_3Ligands_higherAffinity$Experiment == "day18",],aes(x=time, y=vWA_bound)) + 
+  geom_line(size=2) +
+  labs(x = "Time (s)",
+       y = expression(paste("L2-bound Integrin ( nM )",sep = "")))+
+  theme_bw(base_size = 13)+
+  theme(legend.position = "none", 
+        axis.text = element_text(size = 16, face = "bold"),
+        axis.title = element_text(size = 20),
+        strip.text.y = element_text(size=18)) 
+
+plot_grid(L1_bound, L2_bound, L3_bound, nrow = 3, labels = c("A", "B", "C"))
+ggsave("07_figureS4_3ligands.pdf",
+       height = 14,
+       width = 6,
+       units = "in")
+tbl_ss <- simRes_3Ligands_higherAffinity[simRes_3Ligands_higherAffinity$time == 1.600000e-05, ]
+tbl_ss <- tbl_ss[1,7:9]
+df2 <- data_frame(t(tbl_ss))
+df2$ligand_bound <- c("L1-bound", "L2-bound", "L3-bound")
+colnames(df2) <- c("concentration", "ligand_bound")
+ggplot(df2, aes(ligand_bound,concentration)) + geom_point(aes(color=ligand_bound, size=5)) + scale_y_log10() +
+  theme_bw(base_size = 15) + labs(subtitle = "Steady state concentrations in the 3-ligand model", x="", y="log10 Concentration (nM)")+
+  theme(legend.position = "none")
+ggsave("07_figureS4_3ligands.pdf",
+       height = 5,
+       width = 6,
+       units = "in")
